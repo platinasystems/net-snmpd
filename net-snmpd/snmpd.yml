@@ -4,7 +4,7 @@
   gather_facts: true
   tasks:
    
-    - include_vars: vars.yml               ##Update your vars file in provided vars.yml with your required managementIP, communityString, contact, email and                                            ##  location
+    - include_vars: host_vars.yml               ##Update your vars file in provided vars.yml with your required managementIP, communityString, contact, email and                                            ##  location
    
     - name: Non-Free Repository
       apt_repository:
