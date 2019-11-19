@@ -1,5 +1,5 @@
 ---
-managementIp: 192.68.1.49
+managementIp: 192.168.1.49
 communityString: public
 location: SantaClara
 email: customer@customer.com
