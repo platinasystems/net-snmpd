@@ -8,11 +8,11 @@ This playbook can currently be executed by hand, but will eventually be rolled i
 
 ## Dependencies
 We need to ensure that Clusterhead's BMC has an IP address configured so we can talk to the Redis database. Here are the steps to ensure BMC is configured:
-1.Access the Clusterhead's BMC console port (UART) via a Console server.  From the command line use the command below to switch to the BMC console.
+* Access the Clusterhead's BMC console port (UART) via a Console server.  From the command line use the command below to switch to the BMC console.
 ```
 platina@clusterhead1:~$ sudo goes toggle
 ```
-1.Check if the BMC's eth0 is configured
+* Check if the BMC's eth0 is configured
 ```
 platina-mk1-bmc> ip addr show
 1: lo: <loopback,up,lower-up> mtu 65536 qdisc noqueue state unknown mode default group 0 qlen 1000
@@ -27,7 +27,7 @@ platina-mk1-bmc> ip addr show
 
        valid_lft forever preferred_lft forever
 ```
-1.Set up an IP for BMC console port and Reboot.
+* Set up a static IP for BMC console port on the management network and Reboot the BMC console.
 ```
 To assign a static IP address to the BMC processor, enter the following commands at the BMC console:
 ipcfg -ip [ipaddress]::[gateway]:[mask]::eth0:on
@@ -36,11 +36,11 @@ Example:
 platina-mk1-bmc> ipcfg -ip 192.168.4.211::192.168.4.1:255.255.255.0::eth0:on
 platina-mk1-bmc> reboot
 ```
-1.Get back to your management console from the BMC:
+* Get back to your management console from the BMC:
 ```
 platina@clusterhead1> toggle
 ```
-1. Test the connectivity to the IPv4 address we just set up: 
+* Test the connectivity to the IPv4 address we just set up: 
 ```
 platina@clusterhead1:~$ ping 192.168.4.211
 
@@ -48,7 +48,7 @@ PING 192.168.4.211 (192.168.4.211) 56(84) bytes of data.
 
 64 bytes from 192.168.4.211: icmp_seq=1 ttl=64 time=2.31 ms
 ```
-1. Use the command below to query the IPv6 Link Local address:
+* Use the command below to query the IPv6 Link Local address:
 ```
 platina@clusterhead1:~$ sudo goes mac-ll
 
@@ -56,7 +56,7 @@ platina@clusterhead1:~$ sudo goes mac-ll
 
 IPv6 link-local: fe80::5218:4cff:fe00:560c
 ```
-1. Ping the IPv6 Link Local address: 
+* Ping the IPv6 Link Local address: 
 ```
 platina@clusterhead1:~$ ping6 fe80::5218:4cff:fe00:560c%eth0
 
@@ -64,12 +64,12 @@ PING fe80::5218:4cff:fe00:560c%eth0(fe80::5218:4cff:fe00:560c%eth0) 56 data byte
 
 64 bytes from fe80::5218:4cff:fe00:560c%eth0: icmp_seq=1 ttl=64 time=2.32 ms
 ```
-1.Ensure ansible is installed.
+* Ensure ansible is installed.
 ```
 To install ansible, the following is the command:
 apt-get install ansible
 ```
-1. Test the ansible connectivity among all the the Cluster Heads using SSH, on which snmpd is to be configured(It is recommended to configure the passwordless ssh- i.e using key-based ssh into the Cluster Heads).
+* Test the ansible connectivity among all the the Cluster Heads using SSH, on which snmpd is to be configured(It is recommended to configure the passwordless ssh- i.e using key-based ssh into the Cluster Heads).
 
 ## Execution
 
@@ -85,8 +85,6 @@ The provided playbook makes use of the following variables as its input from the
 ```
 ---
 192.168.1.49
-192.168.1.50
-
 ```
 * each entry above references the mgmt IP of a Cluster Head you would like NET-SNMP installed
 
